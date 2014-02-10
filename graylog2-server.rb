@@ -19,6 +19,7 @@ class Graylog2Server < Formula
       # Better to use 127.0.0.1 instead of localhost so you
       # don't need to allow external access to MongoDB.
       # http://www.eimermusic.com/code/graylog2-on-mac-os-x/
+      s.gsub! "node_id_file = /etc/graylog2-server-node-id", "node_id_file = #{etc}/graylog2-server-node-id"
       s.gsub! "password_secret =", "password_secret = " + (0...64).map { (65 + rand(26)).chr }.join
       s.gsub! "root_password_sha2 =", "root_password_sha2 = 4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2"
       s.gsub! "#elasticsearch_discovery_zen_ping_multicast_enabled = false", "elasticsearch_discovery_zen_ping_multicast_enabled = false"
@@ -33,6 +34,8 @@ class Graylog2Server < Formula
 
     etc.install "graylog2.conf"
     prefix.install Dir['*']
+
+    (var+'log/graylog2-server').mkpath
   end
 
   def caveats; <<-EOS.undent

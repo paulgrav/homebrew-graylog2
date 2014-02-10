@@ -16,6 +16,8 @@ class Graylog2WebInterface < Formula
 
     libexec.install Dir['*']
     bin.install_symlink Dir["#{libexec}/bin/*"]
+
+    (var+'log/graylog2-web-interface').mkpath
   end
 
   def caveats; <<-EOS.undent
@@ -26,6 +28,34 @@ class Graylog2WebInterface < Formula
 
       The config file is located at:
         #{libexec}/conf/graylog2-web-interface.conf
+    EOS
+  end
+
+  plist_options :manual => "graylog2-web-interface"
+
+  def plist; <<-EOS.undent
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>Label</key>
+      <string>#{plist_name}</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{bin}/graylog2-web-interface</string>
+      </array>
+      <key>RunAtLoad</key>
+      <true/>
+      <key>KeepAlive</key>
+      <true/>
+      <key>WorkingDirectory</key>
+      <string>#{HOMEBREW_PREFIX}</string>
+      <key>StandardErrorPath</key>
+      <string>#{var}/log/graylog2-web-interface/error.log</string>
+      <key>StandardOutPath</key>
+      <string>#{var}/log/graylog2-web-interface/output.log</string>
+    </dict>
+    </plist>
     EOS
   end
 end
