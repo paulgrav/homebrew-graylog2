@@ -22,13 +22,15 @@ ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
 ln -sfv /usr/local/opt/graylog2-server/*.plist ~/Library/LaunchAgents
 ln -sfv /usr/local/opt/graylog2-web-interface/*.plist ~/Library/LaunchAgents
 
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.graylog2-server.plist
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.graylog2-web-interface.plist
 
-echo "Sleeping for 20 seconds to allow services to startup"
-sleep 20s
+echo "Starting up services. This should take 30 seconds or so..."
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist
+sleep 5s
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+sleep 5s
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.graylog2-server.plist
+sleep 10s
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.graylog2-web-interface.plist
 
 GRAYLOG2_URL="http://admin:root@127.0.0.1:12900"
 GRAYLOG2_INPUT_GELF_UDP='
@@ -76,4 +78,4 @@ This script will kick off a logstash job to decompress and import all logs endin
 Running event import script...
 ```
 
-Now, you can simply hit [http://localhost:9090](http://localhost:9090) and login with username __admin__ and password __root__.
+Now, you can simply hit [http://127.0.0.1:9000/login](http://127.0.0.1:9000/login) and login with username __admin__ and password __root__.
