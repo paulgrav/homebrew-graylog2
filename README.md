@@ -27,6 +27,9 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.graylog2-server.plist
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.graylog2-web-interface.plist
 
+echo "Sleeping for 20 seconds to allow services to startup"
+sleep 20s
+
 GRAYLOG2_URL="http://admin:root@127.0.0.1:12900"
 GRAYLOG2_INPUT_GELF_UDP='
 {
@@ -43,7 +46,7 @@ GRAYLOG2_INPUT_GELF_UDP='
 INPUTS=$(curl -X GET -H "Content-Type: application/json" ${GRAYLOG2_URL}/system/inputs 2>/dev/null)
 
 if [ $(echo $INPUTS | grep -c "GELF UDP") != "1" ]; then
-        curl -X POST -H "Content-Type: application/json" -d "${GRAYLOG2_INPUT_GELF_UDP}" ${GRAYLOG2_URL}/system/inputs > /dev/null
+        curl -X POST -H "Content-Type: application/json" -d "${GRAYLOG2_INPUT_GELF_UDP}" ${GRAYLOG2_URL}/system/inputs
 fi
 ```
 
