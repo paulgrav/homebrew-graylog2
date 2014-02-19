@@ -1,10 +1,10 @@
 require 'formula'
 
 class Graylog2Server < Formula
-  version '0.20.0-rc.1-1'
+  version '0.20.0-rc.3'
   homepage 'http://www.graylog2.org/'
-  url 'https://github.com/Graylog2/graylog2-server/releases/download/0.20.0-rc.1-1/graylog2-server-0.20.0-rc.1-1.tgz'
-  sha1 'b156b08fdc7711c2ed9a3b04b2986972dbeac41f'
+  url 'https://github.com/Graylog2/graylog2-server/releases/download/0.20.0-rc.3/graylog2-server-0.20.0-rc.3.tgz'
+  sha1 '0812682e0e1805ddbb05c8a3f0de07ccb3170f73'
 
   depends_on 'elasticsearch'
   depends_on 'mongodb'
